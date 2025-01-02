@@ -3,17 +3,98 @@
 
 [React Redux Toolkit Query Tutorial and RTK Query CRUD Example App](https://www.youtube.com/watch?v=HyZzCHgG3AY&t)
 
+## Concepts
+
+- Redux is the original global-state manager for React
+- Redux Toolkit should be the standard way to write Redux
+- Redux pattern is to have a single store for the whole application
+- store: the global state, which is accessible across any component
+  - the store is made up of slices
+
 ## Workflow
 
 1. Create the store
+
+```jsx
+import { configureStore } from "@reduxjs/toolkit";
+import counterReducer from "../features/counter/counterSlice";
+
+export const store = configureStore({
+  reducer: {
+    counter: counterReducer,
+  },
+});
+```
+
 2. Create the slice
+
+```jsx
+import { createSlice } from "@reduxjs/toolkit";
+
+const initialState = {
+  count: 0,
+};
+
+export const counterSlice = createSlice({
+  name: "counter",
+  initialState,
+  // actions in this slice
+  reducers: {
+    increment: (state) => {
+      state.count += 1;
+    },
+    decrement: (state) => {
+      state.count -= 1;
+    },
+  },
+});
+
+// export actions and reducers
+export const { increment, decrement } = counterSlice.actions;
+
+export default counterSlice.reducer;
+```
+
 3. Connect React to the store
+
+```jsx
+...
+import { Provider } from "react-redux";
+import { store } from "./store/store.ts";
+
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </StrictMode>
+);
+
+```
+
 4. Dispatch actions in components
 
-## Concepts
+```jsx
+import { useDispatch, useSelector } from "react-redux";
+import { increment, decrement } from "./counterSlice";
+import { RootState } from "../../store/store";
 
-- store: the global state, which is accessible across any component
-  - the store is made up of slices
+export function Counter() {
+  const count = useSelector((state: RootState) => state.counter.count);
+  const dispatch = useDispatch(); // we pass the actions inside the dispatch
+
+  return (
+    <div>
+      <p>{count}</p>
+
+      <div>
+        <button onClick={() => dispatch(increment())}>+</button>
+        <button onClick={() => dispatch(decrement())}>-</button>
+      </div>
+    </div>
+  );
+}
+```
 
 ```jsx
 type CounterStore = {

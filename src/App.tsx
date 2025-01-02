@@ -1,10 +1,12 @@
 import "./App.css";
+import { Counter } from "./features/counter/Counter";
 import TodoList from "./features/todos/TodoList";
 
 function App() {
   return (
     <>
-      <TodoList />
+      <Counter />
+      {/* <TodoList /> */}
     </>
   );
 }
