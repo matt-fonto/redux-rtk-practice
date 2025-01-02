@@ -1,8 +1,8 @@
 import {
   useGetTodosQuery,
-  // useUpdateTodoMutation,
-  // useDeleteTodoMutation,
-  // useAddTodoMutation
+  useUpdateTodoMutation,
+  useDeleteTodoMutation,
+  useAddTodoMutation,
 } from "../api/apiSlice";
 
 import { FormEvent, useState } from "react";
@@ -17,13 +17,14 @@ const TodoList = () => {
     isError,
     error,
   } = useGetTodosQuery();
-  // const [addTodo] = useAddTodoMutation()
-  // const [updateTodo] = useUpdateTodoMutation()
-  // const [deleteTodo] = useDeleteTodoMutation()
+
+  const [addTodo] = useAddTodoMutation();
+  const [updateTodo] = useUpdateTodoMutation();
+  const [deleteTodo] = useDeleteTodoMutation();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // addTodo({ userId: 1, title: newTodo, completed: false })
+    addTodo({ userId: 1, title: newTodo, completed: false });
     setNewTodo("");
   };
 
@@ -56,15 +57,13 @@ const TodoList = () => {
               type="checkbox"
               checked={todo.completed}
               id={String(todo.id)}
-              // onChange={() => updateTodo({ ...todo, completed: !todo.completed })}
+              onChange={() =>
+                updateTodo({ ...todo, completed: !todo.completed })
+              }
             />
             <label htmlFor={String(todo.id)}>{todo.title}</label>
           </div>
-          <button
-            className="trash"
-
-            //   onClick={() => deleteTodo({ id: todo.id })}
-          >
+          <button className="trash" onClick={() => deleteTodo(todo.id)}>
             delete
           </button>
         </article>
