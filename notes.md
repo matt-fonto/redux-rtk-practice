@@ -77,10 +77,10 @@ createRoot(document.getElementById("root")!).render(
 ```jsx
 import { useDispatch, useSelector } from "react-redux";
 import { increment, decrement } from "./counterSlice";
-import { RootState } from "../../store/store";
+import { AppState } from "../../store/store";
 
 export function Counter() {
-  const count = useSelector((state: RootState) => state.counter.count);
+  const count = useSelector((state: AppState) => state.counter.count);
   const dispatch = useDispatch(); // we pass the actions inside the dispatch
 
   return (
@@ -211,7 +211,7 @@ export const store = configureStore({
   },
 });
 
-export type RootState = ReturnType<typeof store.getState>;
+export type AppState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 ```
 
@@ -303,11 +303,11 @@ export default counterSlice.reducer;
 
 ```jsx
 import {useSelector, useDispatch } from "react-redux"
-// import the RootState from the store
+// import the AppState from the store
 // import the actions from the slice
 
 export function Counter(){
-	const {count} = useSelector((state:RootState) => state.counter.value)
+	const {count} = useSelector((state:AppState) => state.counter.value)
 	const dispatch = useDispatch<AppDispatch>(); // we call the dispatch hook and pass the actions from the slice to it
 
 	return (

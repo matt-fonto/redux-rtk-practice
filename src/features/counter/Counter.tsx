@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { increment, decrement, reset, incrementByAmount } from "./counterSlice";
-import { RootState } from "../../store/store";
+import { AppState } from "../../store/store";
 import { useState } from "react";
 
 export function Counter() {
-  const count = useSelector((state: RootState) => state.counter.count);
+  const count = useSelector((state: AppState) => state.counter.count);
   const dispatch = useDispatch(); // we pass the actions inside the dispatch
   const [amountToIncrement, setAmountToIncrement] = useState<
     number | undefined
