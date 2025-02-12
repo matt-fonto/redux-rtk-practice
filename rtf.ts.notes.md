@@ -261,6 +261,24 @@ export const store = configureStore({
 
 ## 7. Redux with React components
 
+```js
+import { useAppDispatch } from "../hooks";
+import { useSelector } from "react-redux";
+import { increment, selectCounter } from "../counterSlice";
+
+const CounterComponent = () => {
+  const count = useAppSelector(selectCounter); // select state
+  const dispatch = useAppDispatch(); // modify state
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => dispatch(increment())}>Increment</button>
+    </div>
+  );
+};
+```
+
 <a id="dynamic-reducers"></a>
 
 ## 8. Dynamic reducers
