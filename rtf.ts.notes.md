@@ -229,6 +229,34 @@ export default dataSlice.reducer;
 
 ## 6. Middleware and custom middleware
 
+- RTK supports middleware, including built-in middleware like `redux-thunk` and allows customization
+- Middlewares can be useful when we need **custom logic that runs between dispatching an action and reaching the reducer**
+
+```js
+import { Middleware } from "@reduxjs/toolkit";
+
+const loggerMiddleware: Middleware = (store) => (next) => (action) => {
+  // do something with the request...
+  console.log("dispatching", action);
+
+  return next(action);
+};
+
+export const store = configureStore({
+  reducer: { counter: counterReducer },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(loggerMiddleware),
+});
+```
+
+### Custom middleware use cases
+
+1. Logging actions and state changes
+2. Handling API calls outisde `createAsyncThunk`
+3. Authentication and authorization
+4. Event tracking / analytics
+5. Rate-limiting or debouncing actions
+
 <a id="redux-react-components"></a>
 
 ## 7. Redux with React components
