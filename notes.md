@@ -5,6 +5,8 @@
 
 ## Concepts
 
+test
+
 - Redux is the original global-state manager for React
 - Redux Toolkit should be the standard way to write Redux
 - Redux pattern is to have a single store for the whole application
